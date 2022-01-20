@@ -1,1 +1,1 @@
-web: gunicorn app: brawnie/scripts/app.py
+web: gunicorn app: scripts/app.py
