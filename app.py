@@ -15,7 +15,7 @@ al='https://eth-ropsten.alchemyapi.io/v2/MIRYh8RdGpXd4M6pSdl0VTJe7l8zFSEN'
 web3 = Web3(Web3.HTTPProvider(al))
 
 key='0x05ba5a15a4ac68580fe2a9c6980d869aa47c6c983f1b0f21b14713477bbe6970'
-# account = web3.eth.account.privateKeyToAccount(key)
+account = web3.eth.account.privateKeyToAccount(key)
 # print(account.address)
 
 # path="C:/Users/MSI 1/Desktop/BlockChain/nft/nftBack/brawnie"
@@ -63,7 +63,7 @@ def importAcccount(private_key):
     return {
         "account address ": account.address,
     }
-
+    
 @app.route('/fetch')
 def fatch():
     data=NFTmarket_contract.functions.fetchMarketItems().call()
@@ -80,6 +80,36 @@ def fatch():
         
     return {
         "details":details
+    }
+
+@app.route('/create')
+def create():
+    transaction = NFTcontract.functions.createToken("https://ipfs.infura.io/ipfs/QmW6WpWf8TSvfAB3SpD8UuwKssdQMniA5sfEgRxZSTfLSs").buildTransaction({
+    'gas': 2000000,
+    'gasPrice': web3.toWei('50', 'gwei'),
+    'from': account.address,
+    'nonce': web3.eth.get_transaction_count(account.address)
+    }) 
+    signed_txn = web3.eth.account.signTransaction(transaction, private_key=key)
+    result=web3.eth.sendRawTransaction(signed_txn.rawTransaction)
+
+    tx_receipt = web3.eth.waitForTransactionReceipt(web3.toHex(result))
+
+    listing = NFTmarket_contract.functions.getListingPrice().call()
+
+    # transaction = NFTmarket_contract.functions.createMarketItem(NFTaddress,web3.toHex(result),4000000,{"value": listing}).buildTransaction({
+    # 'gas': 2000000,
+    # 'gasPrice': web3.toWei('50', 'gwei'),
+    # 'from': account.address,
+    # 'nonce': web3.eth.get_transaction_count(account.address)
+    # }) 
+    # signed_txn = web3.eth.account.signTransaction(transaction, private_key=key)
+    # result=web3.eth.sendRawTransaction(signed_txn.rawTransaction)
+    # tx_receipt = web3.eth.waitForTransactionReceipt(web3.toHex(result))
+
+    return {
+        "receipt":web3.toHex(result),
+        "type":str(listing) ,
     }
 
 if __name__=="__main__":
