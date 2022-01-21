@@ -67,10 +67,16 @@ def importAcccount(private_key):
 @app.route('/fetch')
 def fatch():
     data=NFTmarket_contract.functions.fetchMarketItems().call()
-    details=NFTcontract.functions.tokenURI(3).call()
-    print(details)
-    return {
-        "data": data,
+    details=[]
+    for i in range(len(data)):
+        a={
+            "nft_details":NFTcontract.functions.tokenURI(i+1).call(),
+            "price":web3.fromWei(data[i][5],'ether'),
+            "nft_owner":data[i][3],
+            "data":data[i]
+            
+        }
+        details.append(a)    return {
         "details":details
     }
 
