@@ -76,7 +76,9 @@ def fatch():
             "data":data[i]
             
         }
-        details.append(a)    return {
+        details.append(a)
+        
+    return {
         "details":details
     }
 
