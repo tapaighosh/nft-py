@@ -63,7 +63,7 @@ def importAcccount(private_key):
     return {
         "account address ": account.address,
     }
-    
+
 @app.route('/fetch')
 def fatch():
     data=NFTmarket_contract.functions.fetchMarketItems().call()
@@ -93,7 +93,7 @@ def create():
     signed_txn = web3.eth.account.signTransaction(transaction, private_key=key)
     result=web3.eth.sendRawTransaction(signed_txn.rawTransaction)
 
-    tx_receipt = web3.eth.waitForTransactionReceipt(web3.toHex(result))
+    # tx_receipt = web3.eth.waitForTransactionReceipt(web3.toHex(result))
 
     listing = NFTmarket_contract.functions.getListingPrice().call()
 
