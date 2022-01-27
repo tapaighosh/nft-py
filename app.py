@@ -86,8 +86,8 @@ def fatch():
 
 @app.route('/create',methods=['POST'])
 def create():
-    data=request.values.get('data')
-    price=request.values.get('data')
+    data=str(request.values.get('data'))
+    price=int(request.values.get('price'))
     transaction = NFTcontract.functions.createToken(data).buildTransaction({
     'gas': 2000000,
     'gasPrice': web3.toWei('50', 'gwei'),
