@@ -18,8 +18,8 @@ key='0x05ba5a15a4ac68580fe2a9c6980d869aa47c6c983f1b0f21b14713477bbe6970'
 account = web3.eth.account.privateKeyToAccount(key)
 # print(account.address)
 
-path="C:/Users/MSI 1/Desktop/BlockChain/nft/nftBack/brawnie"
-os.chdir(path)
+# path="C:/Users/MSI 1/Desktop/BlockChain/nft/nftBack/brawnie"
+# os.chdir(path)
 
 with open(f'{os.getcwd()}/build/contracts/NFT.json') as f:
         NFTdata = json.load(f)
