@@ -14,7 +14,7 @@ NFTmarket="0xbA8a346B37bbCCE9E316117435472c0A96820099"
 al='https://eth-ropsten.alchemyapi.io/v2/MIRYh8RdGpXd4M6pSdl0VTJe7l8zFSEN'
 web3 = Web3(Web3.HTTPProvider(al))
 
-key='0x05ba5a15a4ac68580fe2a9c6980d869aa47c6c983f1b0f21b14713477bbe6970'
+key=''
 account = web3.eth.account.privateKeyToAccount(key)
 # print(account.address)
 
